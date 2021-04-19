@@ -1,5 +1,6 @@
 .section-a {
   padding: 2rem 0;
+  margin-top: 4rem;
 }
 
 .section-a .custom_container {
@@ -57,7 +58,7 @@
 .info span {
   font-weight: 300;
   font-size: 0.8rem;
-  color: var(--input-text-color);
+  color: var(--text-color);
 }
 
 .card_container {

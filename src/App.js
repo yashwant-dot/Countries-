@@ -1,8 +1,9 @@
 import React, {useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Detail from './detail';
+import ScrollToTop from './Scroll';
 
 const App = () => {
   const [countries, setCountries] = useState([]);
@@ -55,11 +56,13 @@ const App = () => {
   return(
     <Router>
       <div>
-        <Header handleTheme={handleTheme}/>
-        <Switch>
-          <Route exact path='/' component={() => <Main allCountries={countries} /> } />
-          <Route path='/:id' component={DetailComponent}/>
-        </Switch>
+        <ScrollToTop >
+          <Header handleTheme={handleTheme}/>
+          <Switch>
+            <Route exact path='/' component={() => <Main allCountries={countries} /> } />
+            <Route path='/:id' component={DetailComponent}/>
+          </Switch>
+        </ScrollToTop >
       </div>
     </Router>
   );
