@@ -1,0 +1,61 @@
+.section-a {
+  padding: 2rem 0;
+}
+
+.operation {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.operation input {
+  width: 35%;
+  padding: 0.7rem 1rem;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 1px rgb(17, 17, 17, 0.5);
+}
+
+.operation input:focus {
+  outline: 0;
+  box-shadow: 0 0 5px rgb(17, 17, 17, 0.5);
+}
+
+.operation input::placeholder {
+  color: var(--input-text-color);
+}
+
+.content {
+  padding: 1rem 0;
+}
+
+.card {
+  background-color: var(--element-background-color);
+  cursor: pointer;
+}
+
+.info {
+  padding: 1rem;
+}
+.info h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 800;
+}
+
+.info p {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.info span {
+  font-weight: 300;
+  font-size: 0.8rem;
+  color: var(--input-text-color);
+}
+
+.card_container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 2rem;
+}

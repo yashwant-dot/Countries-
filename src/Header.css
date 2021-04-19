@@ -1,0 +1,19 @@
+header {
+  padding: 1rem 0;
+  background-color: var(--element-background-color);
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .container i {
+  margin-right: 0.5rem;
+}
+
+header .container span {
+  cursor: pointer;
+  font-weight: 700;
+}
