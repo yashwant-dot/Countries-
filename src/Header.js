@@ -13,7 +13,7 @@ const Header = ({ handleTheme }) => {
 
   return(
     <header>
-      <div className="container">
+      <div className="custom_container">
         <Link to='/'><h2>Where in the world?</h2></Link>
         <div>
           { light_theme

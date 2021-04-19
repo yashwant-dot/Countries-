@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Main.css';
 
-const Main = ({ countries }) => {
+const Main = ({ allCountries }) => {
+  const [countries, setCountries] = useState(allCountries);
+  
+  const regions = ['All', ...new Set(allCountries.map(country => country.region ))];
+  regions.pop();
 
-
+  const list = regions.map((region, index) => <p key={index} className='dropdown-item' onClick={() => handleFilter(region)}>{region}</p>);
 
   const Card = ({ country }) => {
     return(
@@ -30,13 +34,37 @@ const Main = ({ countries }) => {
     );
   })
   
-  console.log('Main renders');
+  const handleSearch = (value) => {
+    if(!value) {
+      setCountries(allCountries);
+      return;
+    }
+    const searchResult = allCountries.filter((country) => String(country.name).toLowerCase().startsWith(String(value).toLowerCase()));
+    setCountries(searchResult);
+  }
+
+  const handleFilter = (region) => {
+    if(region === 'All') {
+      setCountries(allCountries);
+      return;
+    }
+    const filteredCountries = allCountries.filter(country => country.region === region);
+    setCountries(filteredCountries);
+  } 
+
   return(
     <section className="section-a">
-      <div className="container">
+      <div className="custom_container">
         <div className="operation">
-          <input type="text" placeholder="Search for a country...."/>
-          <p>Filter Me</p>
+          <div className="dropdown">
+            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Filter by region
+            </button>
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              {list}
+            </div>
+          </div>
+          <input type="text" placeholder="Search for a country...." onChange={(e) => handleSearch(e.target.value)}/>
         </div>
 
         <div className="content">
@@ -49,4 +77,4 @@ const Main = ({ countries }) => {
   );
 }
 
-export default Main;
+export default React.memo(Main);

@@ -1,9 +1,8 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Detail from './detail';
-import './App.css';
 
 const App = () => {
   const [countries, setCountries] = useState([]);
@@ -30,17 +29,6 @@ const App = () => {
     }
   }
 
-  const searchBorderCountries = (borders) => {
-    let borderCountries = [];
-    
-    borders.forEach(code => {
-      let country = countries.filter(country => country.alpha3Code === code)[0];
-      borderCountries.push(country);
-    });
-
-    return borderCountries;
-  }
-
   useEffect(() => {
     let body = document.getElementsByTagName('body')[0];
     body.classList.add('light_theme');
@@ -52,18 +40,24 @@ const App = () => {
   const DetailComponent = ({ match }) => {
     const country = countries.filter(country => country.alpha3Code === match.params.id)[0];
     
+    let borderCountries = [];
+    
+    country.borders.forEach(code => {
+      let country = countries.filter(country => country.alpha3Code === code)[0];
+      borderCountries.push(country);
+    });
+
     return(
-      <Detail country={country} getBorderCountries={searchBorderCountries}/>
+      <Detail country={country} borders={borderCountries}/>
     );
   }
 
-  console.log('App renders');
   return(
     <Router>
       <div>
         <Header handleTheme={handleTheme}/>
         <Switch>
-          <Route exact path='/' component={() => <Main countries={countries} /> } />
+          <Route exact path='/' component={() => <Main allCountries={countries} /> } />
           <Route path='/:id' component={DetailComponent}/>
         </Switch>
       </div>

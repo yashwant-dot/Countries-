@@ -2,6 +2,10 @@
   padding: 2rem 0;
 }
 
+.section-a .custom_container {
+  padding-top: 1rem;
+}
+
 .operation {
   display: flex;
   justify-content: space-between;
@@ -10,10 +14,12 @@
 
 .operation input {
   width: 35%;
+  margin-right: 0.3rem;
   padding: 0.7rem 1rem;
   border-radius: 5px;
   border: none;
   box-shadow: 0 0 1px rgb(17, 17, 17, 0.5);
+  color: var(--input-text-color);
 }
 
 .operation input:focus {
@@ -58,4 +64,39 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 2rem;
+  transition: 0.2s;
+}
+
+.dropdown-item {
+  cursor: pointer;
+}
+
+@media(max-width: 950px) {
+  .card_container {
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1.5rem;
+  }
+}
+
+@media(max-width: 700px) {
+  .card_container {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1.2rem;
+  }
+}
+
+@media(max-width: 500px) {
+  .card_container {
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+  }
+
+  .operation {
+    display: block;
+  }
+
+  .operation input {
+    width: 70%;
+    margin-top: 1rem;
+  }
 }

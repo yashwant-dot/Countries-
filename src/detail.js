@@ -1,21 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import './detail.css';
 
-const Detail = ( { country, getBorderCountries } ) => {
+const Detail = ( { country, borders } ) => {
   const history = useHistory();
-  const [borders, setBorders] = useState([]);
- 
-  useEffect(() => {
-    let borders = getBorderCountries(country.borders);  
-    setBorders(borders);
-  }, [country]);
-
-
-  console.log('Detail renders');
+  
   return(
     <section className="section-b">
-      <div className="container">
+      <div className="custom_container">
         <button className="back" onClick={history.goBack}><i className="fas fa-arrow-left"></i>Back</button>
         <div className="grid_container">
           <img src={country.flag} alt="flag"/>

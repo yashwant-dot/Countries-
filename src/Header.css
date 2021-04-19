@@ -3,17 +3,28 @@ header {
   background-color: var(--element-background-color);
 }
 
-header .container {
+header .custom_container {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-header .container i {
+h2 {
+  font-weight: 800;
+}
+
+header .custom_container i {
   margin-right: 0.5rem;
 }
 
-header .container span {
+header .custom_container span {
   cursor: pointer;
   font-weight: 700;
+}
+
+@media(max-width: 450px) {
+  h2 {
+    font-size: 1rem;
+    font-weight: 800;
+  }
 }
