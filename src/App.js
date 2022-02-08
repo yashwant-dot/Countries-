@@ -1,42 +1,32 @@
-import React, {useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Detail from './detail';
 import ScrollToTop from './Scroll';
+import { useSelector, useDispatch } from 'react-redux';
+import { getTheme } from './+state/+features/theme';
+import { fetchCountries, getAllCountries } from './+state/+features/countries';
 
 const App = () => {
-  const [countries, setCountries] = useState([]);
+  const dispatch = useDispatch();
+  const theme = useSelector(getTheme);
+  const countries = useSelector(getAllCountries);
 
-  const handleTheme = (light_theme) => {
-    let body = document.getElementsByTagName('body')[0];
-    
-    if(light_theme) {
-      body.classList.add('dark_theme');
-      body.classList.remove('light_theme');
-    } else {
-      body.classList.add('light_theme');
-      body.classList.remove('dark_theme');
-    }
-  }
-
-  const fetchCountries = async () => {
-    try {
-      const response = await fetch('https://restcountries.eu/rest/v2/all');
-      const data = await response.json();
-      setCountries(data);
-    } catch(error) {
-      console.log(error);
-    }
-  }
+  useEffect(() => {
+    dispatch(fetchCountries());
+  }, [dispatch]);
 
   useEffect(() => {
     let body = document.getElementsByTagName('body')[0];
-    body.classList.add('light_theme');
-    fetchCountries();
-  }, []);
-
-
+    if(theme === 'light_theme') {
+      body.classList.add('light_theme');
+      body.classList.remove('dark_theme');
+    } else {
+      body.classList.add('dark_theme');
+      body.classList.remove('light_theme');
+    }
+  }, [theme]);
 
   const DetailComponent = ({ match }) => {
     const country = countries.filter(country => country.alpha3Code === match.params.id)[0];
@@ -57,7 +47,7 @@ const App = () => {
     <Router>
       <div>
         <ScrollToTop >
-          <Header handleTheme={handleTheme}/>
+          <Header/>
           <Switch>
             <Route exact path='/' component={() => <Main allCountries={countries} /> } />
             <Route path='/:id' component={DetailComponent}/>
@@ -66,11 +56,6 @@ const App = () => {
       </div>
     </Router>
   );
-
-
-
-
-
 }
 
 export default App;

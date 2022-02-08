@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Main.css';
+import { useSelector } from 'react-redux';
+import { getStatus, getRegions } from './+state/+features/countries';
 
 const Main = ({ allCountries }) => {
   const [countries, setCountries] = useState(allCountries);
-  
-  const regions = ['All', ...new Set(allCountries.map(country => country.region ))];
-  regions.pop();
+  const status = useSelector(getStatus);
+  const regions = useSelector(getRegions);
 
-  const list = regions.map((region, index) => <p key={index} className='dropdown-item' onClick={() => handleFilter(region)}>{region}</p>);
+  const list = regions.map((region, index) => 
+    <p key={index} className='dropdown-item' onClick={(e) => handleFilter(region)}>{region}</p>
+  );
 
   const Card = ({ country }) => {
     return(
@@ -50,9 +53,9 @@ const Main = ({ allCountries }) => {
     }
     const filteredCountries = allCountries.filter(country => country.region === region);
     setCountries(filteredCountries);
-  } 
+  }
 
-  return(
+  return (
     <section className="section-a">
       <div className="custom_container">
         <div className="operation">
@@ -69,7 +72,12 @@ const Main = ({ allCountries }) => {
 
         <div className="content">
           <div className="card_container">
-            {cards}
+            {status === 'loading'
+            ? <div className="spinner-border" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            : cards
+            }
           </div>
         </div>
       </div>
